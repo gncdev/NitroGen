@@ -18,13 +18,12 @@ getGiftCode = function () {
 checkCode = function (code) {
     request(`https://discordapp.com/api/v6/entitlements/gift-codes/${code}?with_application=false&with_subscription_plan=true`, (error, res, body) => {
         if(error){
-            logger.error(`Hata:`);
-            logger.error(error);
+            logger.error(`Hata: ${error}`);
             return;
         }
         try {
             body = JSON.parse(body);
-            if(body.message != "Bilinmeyen Kod" && body.message != "Limiti Aştın."){
+            if(body.message != "You are being rate limited."){
                 logger.info(`Çalışan Kod Bulundu: https://discord.gift/${code}`);
                 console.log(JSON.stringify(body, null, 4));
                 working.push(`https://discord.gift/${code}`);
@@ -42,10 +41,10 @@ checkCode = function (code) {
     });
 }
 logger.info(`NitroGEN By GianC-Dev`);
-logger.info(`Her ${(1/triesPerSecond)} saniye kod üretiyor.`)
+logger.info(`Her saniye kod üretiyor.`)
 logger.info(`-------------------------------------\n`);
 
 checkCode(getGiftCode());
 setInterval(() => {
     checkCode(getGiftCode());
-}, (1/triesPerSecond) * 1000);
+}, (1/triesPerSecond) * 100);
