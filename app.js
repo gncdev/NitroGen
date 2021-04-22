@@ -16,7 +16,7 @@ getGiftCode = function () {
 }
 
 checkCode = function (code) {
-    request(`https://discord.com/api/v6/entitlements/gift-codes/${code}?with_application=false&with_subscription_plan=true`, (error, res, body) => {
+    request(`https://discord.com/api/v7/entitlements/gift-codes/${code}?with_application=false&with_subscription_plan=true`, (error, res, body) => {
         if(error){
             logger.error(`Hata: ${error}`);
             return;
