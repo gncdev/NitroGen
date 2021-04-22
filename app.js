@@ -24,13 +24,13 @@ checkCode = function (code) {
         try {
             body = JSON.parse(body);
             if(body.message != "You are being rate limited."){
-                logger.info(`Çalışan Kod Bulundu: https://discord.gift/${code}`);
+                logger.info(`Found working code: https://discord.gift/${code}`);
                 console.log(JSON.stringify(body, null, 4));
                 working.push(`https://discord.gift/${code}`);
                 fs.writeFileSync(__dirname + '/codes.json', JSON.stringify(working, null, 4));
             }
             else {
-                logger.info(`${code} geçersiz`);
+                logger.info(`${code} is not working`);
             }
         }
         catch (error) {
@@ -41,7 +41,7 @@ checkCode = function (code) {
     });
 }
 logger.info(`NitroGEN By GianC-Dev`);
-logger.info(`Her saniye kod üretiyor.`)
+logger.info(`Make codes in every second.`)
 logger.info(`-------------------------------------\n`);
 
 checkCode(getGiftCode());
